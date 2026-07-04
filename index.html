@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triagem Clínica — Protocolo Reset Neurometabólico 21D</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+:root{
+  --navy:     #0D1B2A;
+  --blue:     #1A6FA8;
+  --blue-mid: #C5DFF2;
+  --blue-lt:  #EEF6FD;
+  --white:    #FFFFFF;
+  --gray:     #6B7A8D;
+  --gray-lt:  #E8EFF7;
+  --bg:       #F0F6FC;
+  --gold:     #B8860B;
+  --gold-lt:  #F9F3E3;
+  --green:    #166534;
+  --green-bg: #DCFCE7;
+  --amber:    #92400E;
+  --amber-bg: #FEF3C7;
+  --red:      #991B1B;
+  --red-bg:   #FEE2E2;
+  --r:        14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+
+/* HEADER */
+header{
+  background:var(--navy);
+  padding:16px 24px;
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-wrap img{height:64px;width:auto;display:block}
+.logo-copy .logo-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
+.logo-copy .logo-sub{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.8px;margin-top:3px;line-height:1.5}
+.header-contact{text-align:right}
+.header-contact a,.header-contact span{
+  display:block;font-size:11px;color:var(--blue-mid);
+  text-decoration:none;font-weight:500;letter-spacing:.3px;line-height:1.8
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(150deg,#0D1B2A 0%,#1a3a5c 55%,#1A6FA8 100%);
+  padding:56px 24px 72px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);
+  width:600px;height:160px;background:var(--bg);border-radius:50%;
+}
+.hero-logo{margin:0 auto 20px;display:block;height:100px;width:auto;position:relative;z-index:1}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue-mid);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5.5vw,42px);color:#fff;line-height:1.2;margin-bottom:14px}
+.hero h1 em{color:#D4AF5A;font-style:italic}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.72);max-width:500px;margin:0 auto 22px;line-height:1.65}
+.pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;position:relative;z-index:1}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:6px 14px;font-size:11px;color:rgba(255,255,255,.85);font-weight:500}
+
+/* WRAPPER */
+.wrap{max-width:660px;margin:-32px auto 0;padding:0 16px 72px;position:relative;z-index:2}
+
+/* PROGRESSO */
+.prog-bar-wrap{margin-bottom:20px}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:6px}
+.prog-track{height:5px;background:var(--gray-lt);border-radius:5px;overflow:hidden}
+.prog-fill{height:100%;background:var(--blue);border-radius:5px;transition:width .4s ease;width:0%}
+
+/* CARD */
+.card{background:var(--white);border-radius:var(--r);padding:28px 24px;margin-bottom:16px;box-shadow:0 2px 16px rgba(13,27,42,.07)}
+.card-hd{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.step-dot{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-hd h2{font-size:16px;font-weight:700;color:var(--navy)}
+.card-hd p{font-size:12px;color:var(--gray);margin-top:2px}
+.div{height:1px;background:var(--gray-lt);margin:20px 0}
+
+/* FIELDS */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.field input,.field select{
+  width:100%;padding:12px 14px;border:1.5px solid var(--gray-lt);border-radius:9px;
+  font-size:15px;font-family:'Inter',sans-serif;color:var(--navy);background:var(--bg);
+  outline:none;transition:border .2s,background .2s;appearance:none;-webkit-appearance:none
+}
+.field input:focus,.field select:focus{border-color:var(--blue);background:#fff}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:440px){.field-row{grid-template-columns:1fr}}
+
+/* RADIO PILLS */
+.radio-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.radio-grid.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:440px){.radio-grid,.radio-grid.three{grid-template-columns:1fr 1fr}}
+.rpill{border:1.5px solid var(--gray-lt);border-radius:9px;padding:12px 10px;cursor:pointer;text-align:center;transition:all .18s;background:var(--bg)}
+.rpill input{display:none}
+.rpill .rv{font-size:16px;font-weight:700;color:var(--navy);display:block}
+.rpill .rl{font-size:11px;color:var(--gray);display:block;margin-top:3px;line-height:1.3}
+.rpill:hover{border-color:var(--blue);background:var(--blue-lt)}
+.rpill.on{border-color:var(--blue);background:var(--blue-lt)}
+.rpill.on .rv{color:var(--blue)}
+
+/* CHECKBOX CARDS */
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+@media(max-width:440px){.chk-grid{grid-template-columns:1fr}}
+.chk-card{border:1.5px solid var(--gray-lt);border-radius:10px;padding:14px 12px;cursor:pointer;transition:all .18s;background:var(--bg);position:relative}
+.chk-card input{display:none}
+.chk-card .ci{font-size:22px;margin-bottom:6px;display:block}
+.chk-card .cl{font-size:13px;font-weight:600;color:var(--navy);line-height:1.3}
+.chk-card .cs{position:absolute;top:10px;right:10px;width:19px;height:19px;border-radius:50%;background:var(--blue);display:none;align-items:center;justify-content:center}
+.chk-card .cs svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;fill:none}
+.chk-card:hover{border-color:var(--blue)}
+.chk-card.on{border-color:var(--blue);background:var(--blue-lt)}
+.chk-card.on .cs{display:flex}
+
+/* ESCALA */
+.scale-wrap{margin-top:14px}
+.scale-lbl{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;display:block}
+.scale-row{display:flex;gap:5px;flex-wrap:wrap}
+.sc{flex:1;min-width:34px;padding:9px 2px;border:1.5px solid var(--gray-lt);border-radius:8px;background:var(--bg);cursor:pointer;text-align:center;font-family:'Inter',sans-serif;transition:all .18s}
+.sc span{font-size:14px;font-weight:700;color:var(--navy);display:block}
+.sc:hover{border-color:var(--blue)}
+.sc.on{border-color:var(--blue);background:var(--blue-lt)}
+.sc.on span{color:var(--blue)}
+.scale-ends{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--gray)}
+
+/* INFO BOX */
+.info-box{background:var(--blue-lt);border:1px solid var(--blue-mid);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13px;color:var(--navy);line-height:1.6}
+.info-box strong{color:var(--blue);font-weight:700}
+.info-box ol,.info-box ul{padding-left:18px;margin-top:6px}
+.info-box li{margin-bottom:4px}
+
+/* IMC */
+.imc-result{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600}
+.imc-result.ok{background:#DCFCE7;color:#166534}
+.imc-result.at{background:#FEF3C7;color:#92400E}
+.imc-result.ob{background:#FEE2E2;color:#991B1B}
+
+/* COMPROMETIMENTO DESTAQUE */
+.commit-box{
+  background:linear-gradient(135deg,#0D1B2A,#1a3a5c);
+  border-radius:12px;padding:24px;margin-top:6px;
+  border:1px solid rgba(212,175,90,.3);
+}
+.commit-box .cb-title{font-size:15px;font-weight:700;color:#D4AF5A;margin-bottom:6px}
+.commit-box .cb-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:16px}
+.commit-box .rpill{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
+.commit-box .rpill .rv,.commit-box .rpill .rl{color:rgba(255,255,255,.85)}
+.commit-box .rpill:hover{border-color:#D4AF5A;background:rgba(212,175,90,.1)}
+.commit-box .rpill.on{border-color:#D4AF5A;background:rgba(212,175,90,.15)}
+.commit-box .rpill.on .rv{color:#D4AF5A}
+
+/* BOTÃO PRINCIPAL */
+.btn-main{
+  width:100%;padding:17px;background:var(--blue);color:#fff;
+  border:none;border-radius:10px;font-size:16px;font-weight:700;
+  font-family:'Inter',sans-serif;cursor:pointer;transition:all .2s;
+  margin-top:8px;letter-spacing:.3px
+}
+.btn-main:hover{background:#155d8f;transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,111,168,.32)}
+
+/* RESULTADO */
+#result{display:none}
+.res-hero{border-radius:var(--r);padding:36px 24px;text-align:center;margin-bottom:16px}
+.res-hero.verde{background:var(--green-bg);border:2px solid #86EFAC}
+.res-hero.amber{background:var(--amber-bg);border:2px solid #FCD34D}
+.res-hero.vermelho{background:var(--red-bg);border:2px solid #FCA5A5}
+.res-icon{font-size:52px;margin-bottom:12px;display:block}
+.res-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:10px}
+.res-score{font-size:56px;font-weight:800;margin:8px 0}
+.res-hero.verde   .res-title,.res-hero.verde   .res-score{color:var(--green)}
+.res-hero.amber   .res-title,.res-hero.amber   .res-score{color:var(--amber)}
+.res-hero.vermelho .res-title,.res-hero.vermelho .res-score{color:var(--red)}
+.res-msg{font-size:14px;line-height:1.75;color:var(--navy);max-width:500px;margin:0 auto}
+.res-card{background:#fff;border-radius:var(--r);padding:22px 24px;margin-bottom:16px;box-shadow:0 2px 16px rgba(13,27,42,.07)}
+.res-card h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray);margin-bottom:14px}
+.tag-row{display:flex;flex-wrap:wrap;gap:7px}
+.tag{background:var(--blue-lt);border:1px solid var(--blue-mid);border-radius:100px;padding:4px 12px;font-size:12px;font-weight:600;color:var(--blue)}
+.tag.red{background:var(--red-bg);border-color:#FCA5A5;color:var(--red)}
+.tag.amber{background:var(--amber-bg);border-color:#FCD34D;color:var(--amber)}
+
+/* BOTÃO WPP */
+.btn-wpp{
+  width:100%;padding:16px;background:#25D366;color:#fff;
+  border:none;border-radius:10px;font-size:15px;font-weight:700;
+  font-family:'Inter',sans-serif;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  text-decoration:none;transition:all .2s;margin-bottom:10px
+}
+.btn-wpp:hover{background:#1daa55;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:var(--navy);padding:28px 24px;text-align:center}
+.footer-logo{height:56px;width:auto;margin:0 auto 14px;display:block;opacity:.85}
+.footer-line{height:1px;background:rgba(255,255,255,.08);margin:14px auto;max-width:200px}
+footer p{font-size:11px;color:rgba(255,255,255,.4);line-height:1.8}
+footer strong{color:rgba(255,255,255,.65)}
+
+.disclaimer{font-size:11px;color:var(--gray);text-align:center;line-height:1.6;margin-top:10px;padding:0 8px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img src="data:image/png;base64,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" alt="Instituto Neuro Essentia">
+    <div class="logo-copy">
+      <div class="logo-name">Instituto Neuro Essentia</div>
+      <div class="logo-sub">Dr. Amilton A. Silva Jr. · CRM/SC 9118<br>Neurologia e Neurocirurgia · RQE 6114 e 6113</div>
+    </div>
+  </div>
+  <div class="header-contact">
+    <a href="tel:+5547992202080">📞 (47) 99220-2080</a>
+    <a href="https://wa.me/5547992202080" target="_blank">💬 WhatsApp</a>
+    <span>Balneário Camboriú / SC</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-logo" src="data:image/png;base64,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" alt="Instituto Neuro Essentia">
+  <div class="eyebrow">Avaliação de elegibilidade clínica</div>
+  <h1>Protocolo Reset<br><em>Neurometabólico 21D</em></h1>
+  <p class="hero-desc">Responda com precisão. Quanto mais detalhado você for, mais fidedigna será a avaliação de elegibilidade pelo Dr. Amilton Silva Jr.</p>
+  <div class="pill-row">
+    <span class="pill">⏱ 5–7 minutos</span>
+    <span class="pill">🔒 Dados confidenciais</span>
+    <span class="pill">🧠 Avaliação neurológica</span>
+    <span class="pill">📋 Score automático</span>
+  </div>
+</div>
+
+<!-- FORMULÁRIO -->
+<div class="wrap">
+<div id="form-section">
+
+  <div class="prog-bar-wrap">
+    <div class="prog-meta"><span>Progresso da triagem</span><span id="pct-lbl">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog"></div></div>
+  </div>
+
+  <!-- BLOCO 1: IDENTIFICAÇÃO -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">1</div><div><h2>Identificação</h2><p>Dados confidenciais · exclusivos para avaliação</p></div></div>
+    <div class="field-row">
+      <div class="field"><label>Nome completo *</label><input type="text" id="nome" placeholder="Seu nome" oninput="upd()"></div>
+      <div class="field"><label>WhatsApp (com DDD) *</label><input type="tel" id="wpp" placeholder="(47) 99999-9999" oninput="upd()"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Idade *</label><input type="number" id="idade" placeholder="Ex: 42" min="18" max="99" oninput="upd()"></div>
+      <div class="field"><label>Sexo *</label>
+        <select id="sexo" onchange="upd()">
+          <option value="">Selecione</option>
+          <option value="F">Feminino</option>
+          <option value="M">Masculino</option>
+          <option value="O">Prefiro não informar</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Cidade / Estado</label><input type="text" id="cidade" placeholder="Ex: Balneário Camboriú / SC" oninput="upd()"></div>
+  </div>
+
+  <!-- BLOCO 2: DADOS CORPORAIS -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">2</div><div><h2>Dados corporais</h2><p>IMC e risco metabólico calculados automaticamente</p></div></div>
+    <div class="field-row">
+      <div class="field"><label>Peso atual (kg) *</label><input type="number" id="peso" placeholder="Ex: 78" step="0.1" oninput="calcIMC()"></div>
+      <div class="field"><label>Altura (cm) *</label><input type="number" id="altura" placeholder="Ex: 170" oninput="calcIMC()"></div>
+    </div>
+    <div id="imc-result" class="imc-result"></div>
+    <div class="div"></div>
+    <div class="field"><label>Circunferência abdominal (cm) *</label><input type="number" id="ca" placeholder="Ex: 88" step="0.5" oninput="upd()"></div>
+    <div class="info-box">
+      <strong>📏 Como medir corretamente:</strong>
+      <ol>
+        <li>Fique em pé, abdômen relaxado (sem prender a barriga)</li>
+        <li>Localize o ponto médio entre a última costela e a crista ilíaca (osso do quadril)</li>
+        <li>Passe a fita métrica horizontalmente ao redor da cintura nesse ponto</li>
+        <li>Meça no final de uma expiração normal</li>
+      </ol>
+      <div style="margin-top:8px"><strong>Referência de risco metabólico:</strong><br>
+      Mulheres: aumentado ≥ 80 cm · alto ≥ 88 cm<br>
+      Homens: aumentado ≥ 94 cm · alto ≥ 102 cm</div>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: SONO -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">3</div><div><h2>Qualidade do sono</h2><p>O sono é o principal regulador do sistema nervoso central</p></div></div>
+    <div class="field"><label>Horas de sono por noite (média)</label>
+      <div class="radio-grid three" id="horas-sono">
+        <label class="rpill" onclick="selRpill(this,'horas-sono',4)"><input type="radio"><span class="rv">😰</span><span class="rl">Menos de 5h</span></label>
+        <label class="rpill" onclick="selRpill(this,'horas-sono',3)"><input type="radio"><span class="rv">😟</span><span class="rl">5 – 6h</span></label>
+        <label class="rpill" onclick="selRpill(this,'horas-sono',1)"><input type="radio"><span class="rv">😊</span><span class="rl">7 – 8h</span></label>
+        <label class="rpill" onclick="selRpill(this,'horas-sono',2)"><input type="radio"><span class="rv">😕</span><span class="rl">Mais de 9h</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Qualidade do sono</label>
+      <div class="radio-grid" id="qual-sono">
+        <label class="rpill" onclick="selRpill(this,'qual-sono',4)"><input type="radio"><span class="rv">🔴</span><span class="rl">Péssima — acordo exausto</span></label>
+        <label class="rpill" onclick="selRpill(this,'qual-sono',3)"><input type="radio"><span class="rv">🟠</span><span class="rl">Ruim — acordo cansado</span></label>
+        <label class="rpill" onclick="selRpill(this,'qual-sono',2)"><input type="radio"><span class="rv">🟡</span><span class="rl">Regular — às vezes reparador</span></label>
+        <label class="rpill" onclick="selRpill(this,'qual-sono',0)"><input type="radio"><span class="rv">🟢</span><span class="rl">Boa — acordo descansado</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Dificuldade para pegar no sono ou acorda no meio da noite?</label>
+      <div class="radio-grid three" id="dif-sono">
+        <label class="rpill" onclick="selRpill(this,'dif-sono',3)"><input type="radio"><span class="rv">Sempre</span><span class="rl">Toda noite</span></label>
+        <label class="rpill" onclick="selRpill(this,'dif-sono',2)"><input type="radio"><span class="rv">Às vezes</span><span class="rl">3–4x/semana</span></label>
+        <label class="rpill" onclick="selRpill(this,'dif-sono',1)"><input type="radio"><span class="rv">Raramente</span><span class="rl">1–2x/semana</span></label>
+        <label class="rpill" onclick="selRpill(this,'dif-sono',0)"><input type="radio"><span class="rv">Nunca</span><span class="rl">Sem problema</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Usa alguma substância para dormir?</label>
+      <div class="radio-grid" id="sub-sono">
+        <label class="rpill" onclick="selRpill(this,'sub-sono',3)"><input type="radio"><span class="rv">💊</span><span class="rl">Remédio prescrito</span></label>
+        <label class="rpill" onclick="selRpill(this,'sub-sono',2)"><input type="radio"><span class="rv">🌿</span><span class="rl">Suplemento / fitoterápico</span></label>
+        <label class="rpill" onclick="selRpill(this,'sub-sono',1)"><input type="radio"><span class="rv">🍷</span><span class="rl">Álcool</span></label>
+        <label class="rpill" onclick="selRpill(this,'sub-sono',0)"><input type="radio"><span class="rv">✅</span><span class="rl">Nenhuma</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 4: SINTOMAS -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">4</div><div><h2>Sintomas e queixas</h2><p>Selecione todos que você reconhece em você</p></div></div>
+    <div class="chk-grid" id="sintomas-grid">
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="cansaco" data-p="3"><span class="ci">🔋</span><span class="cl">Cansaço mental e falta de energia</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="fog" data-p="3"><span class="ci">🌫</span><span class="cl">Nevoeiro mental (brain fog)</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="memoria" data-p="3"><span class="ci">🧩</span><span class="cl">Falhas de memória e concentração</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="estresse" data-p="2"><span class="ci">⚡</span><span class="cl">Estresse crônico e ansiedade</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="humor" data-p="2"><span class="ci">🌪</span><span class="cl">Oscilação de humor</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="dor" data-p="2"><span class="ci">🔥</span><span class="cl">Dores crônicas</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="performance" data-p="2"><span class="ci">📉</span><span class="cl">Queda de performance e disposição</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="libido" data-p="1"><span class="ci">💤</span><span class="cl">Queda de libido</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="intestino" data-p="1"><span class="ci">🫁</span><span class="cl">Intestino irregular / inchaço</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="peso" data-p="1"><span class="ci">⚖️</span><span class="cl">Dificuldade para perder peso</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Há quanto tempo você convive com esses sintomas?</label>
+      <div class="radio-grid three" id="tempo-sint">
+        <label class="rpill" onclick="selRpill(this,'tempo-sint',1)"><input type="radio"><span class="rv">⏳</span><span class="rl">Semanas</span></label>
+        <label class="rpill" onclick="selRpill(this,'tempo-sint',2)"><input type="radio"><span class="rv">📅</span><span class="rl">1–6 meses</span></label>
+        <label class="rpill" onclick="selRpill(this,'tempo-sint',3)"><input type="radio"><span class="rv">📆</span><span class="rl">6m – 2 anos</span></label>
+        <label class="rpill" onclick="selRpill(this,'tempo-sint',4)"><input type="radio"><span class="rv">🗓</span><span class="rl">Mais de 2 anos</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="scale-wrap">
+      <span class="scale-lbl">Impacto geral no seu dia a dia (0 = nenhum · 10 = severo)</span>
+      <div class="scale-row" id="impacto-sc">
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',0)"><span>0</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',1)"><span>1</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',2)"><span>2</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',3)"><span>3</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',4)"><span>4</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',5)"><span>5</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',6)"><span>6</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',7)"><span>7</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',8)"><span>8</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',9)"><span>9</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'impacto-sc',10)"><span>10</span></button>
+      </div>
+      <div class="scale-ends"><span>Nenhum impacto</span><span>Impacto severo</span></div>
+    </div>
+  </div>
+
+  <!-- BLOCO 5: CONDICIONAMENTO FÍSICO -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">5</div><div><h2>Condicionamento físico</h2><p>Atividade física influencia diretamente a neuroplasticidade</p></div></div>
+    <div class="field"><label>Frequência de atividade física semanal</label>
+      <div class="radio-grid" id="ativ-freq">
+        <label class="rpill" onclick="selRpill(this,'ativ-freq',4)"><input type="radio"><span class="rv">🛋</span><span class="rl">Sedentário — não pratico</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-freq',3)"><input type="radio"><span class="rv">🚶</span><span class="rl">1–2x por semana</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-freq',1)"><input type="radio"><span class="rv">🏃</span><span class="rl">3–4x por semana</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-freq',0)"><input type="radio"><span class="rv">🏋</span><span class="rl">5+ vezes por semana</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Tipo de atividade principal</label>
+      <div class="radio-grid three" id="ativ-tipo">
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',0)"><input type="radio"><span class="rv">💪</span><span class="rl">Musculação</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',0)"><input type="radio"><span class="rv">🏃</span><span class="rl">Aeróbico</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',0)"><input type="radio"><span class="rv">🧘</span><span class="rl">Yoga / Pilates</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',0)"><input type="radio"><span class="rv">🚴</span><span class="rl">Esporte</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',1)"><input type="radio"><span class="rv">❓</span><span class="rl">Não pratico</span></label>
+        <label class="rpill" onclick="selRpill(this,'ativ-tipo',0)"><input type="radio"><span class="rv">🔀</span><span class="rl">Misto</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="scale-wrap">
+      <span class="scale-lbl">Energia física no dia a dia (0 = esgotado · 10 = ótima)</span>
+      <div class="scale-row" id="energia-sc">
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',0)"><span>0</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',1)"><span>1</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',2)"><span>2</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',3)"><span>3</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',4)"><span>4</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',5)"><span>5</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',6)"><span>6</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',7)"><span>7</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',8)"><span>8</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',9)"><span>9</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'energia-sc',10)"><span>10</span></button>
+      </div>
+      <div class="scale-ends"><span>Esgotado</span><span>Energia ótima</span></div>
+    </div>
+  </div>
+
+  <!-- BLOCO 6: ESTILO DE VIDA -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">6</div><div><h2>Estilo de vida e hábitos</h2><p>Fatores que modulam diretamente o sistema nervoso</p></div></div>
+    <div class="field"><label>Consumo de álcool</label>
+      <div class="radio-grid three" id="alcool">
+        <label class="rpill" onclick="selRpill(this,'alcool',0)"><input type="radio"><span class="rv">🚫</span><span class="rl">Não consumo</span></label>
+        <label class="rpill" onclick="selRpill(this,'alcool',1)"><input type="radio"><span class="rv">🍷</span><span class="rl">Ocasional</span></label>
+        <label class="rpill" onclick="selRpill(this,'alcool',2)"><input type="radio"><span class="rv">🍻</span><span class="rl">Semanal</span></label>
+        <label class="rpill" onclick="selRpill(this,'alcool',3)"><input type="radio"><span class="rv">⚠️</span><span class="rl">Frequente</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Tabagismo</label>
+      <div class="radio-grid three" id="tabaco">
+        <label class="rpill" onclick="selRpill(this,'tabaco',0)"><input type="radio"><span class="rv">✅</span><span class="rl">Nunca fumei</span></label>
+        <label class="rpill" onclick="selRpill(this,'tabaco',1)"><input type="radio"><span class="rv">⏪</span><span class="rl">Ex-fumante</span></label>
+        <label class="rpill" onclick="selRpill(this,'tabaco',3)"><input type="radio"><span class="rv">🚬</span><span class="rl">Fumo atualmente</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Alimentação predominante</label>
+      <div class="radio-grid" id="alim">
+        <label class="rpill" onclick="selRpill(this,'alim',0)"><input type="radio"><span class="rv">🥗</span><span class="rl">Equilibrada e variada</span></label>
+        <label class="rpill" onclick="selRpill(this,'alim',2)"><input type="radio"><span class="rv">🍞</span><span class="rl">Muito processada / fast food</span></label>
+        <label class="rpill" onclick="selRpill(this,'alim',1)"><input type="radio"><span class="rv">🔀</span><span class="rl">Irregular — sem padrão</span></label>
+        <label class="rpill" onclick="selRpill(this,'alim',0)"><input type="radio"><span class="rv">🥩</span><span class="rl">Low carb / carnívora</span></label>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="field"><label>Medicamentos contínuos (selecione todos que usa)</label>
+      <div class="chk-grid" id="meds-grid">
+        <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="antidep" data-p="0"><span class="ci">💊</span><span class="cl">Antidepressivo / ansiolítico</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+        <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="analgesico" data-p="0"><span class="ci">💊</span><span class="cl">Analgésicos / anti-inflamatórios</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+        <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="hormonal" data-p="0"><span class="ci">💊</span><span class="cl">Hormônios (tireoide, TRH etc)</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+        <label class="chk-card" onclick="togChk(this)"><input type="checkbox" value="nenhum-med" data-p="0"><span class="ci">✅</span><span class="cl">Nenhum medicamento contínuo</span><span class="cs"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO 7: COMPROMETIMENTO -->
+  <div class="card">
+    <div class="card-hd"><div class="step-dot">7</div><div><h2>Comprometimento e disponibilidade</h2><p>O protocolo exige dedicação real por 21 dias consecutivos</p></div></div>
+
+    <div class="commit-box">
+      <div class="cb-title">🎯 Uma pergunta direta antes de continuar</div>
+      <div class="cb-desc">O Protocolo Reset Neurometabólico 21D envolve mudanças reais de rotina — sono, alimentação, movimento e manejo do estresse. Os resultados dependem diretamente do seu comprometimento diário.<br><br>
+      <strong style="color:#D4AF5A">Você está disposto(a) a dar o seu melhor por 21 dias consecutivos para obter os resultados que deseja?</strong></div>
+      <div class="radio-grid three" id="comprometimento">
+        <label class="rpill" onclick="selRpill(this,'comprometimento',0)"><input type="radio"><span class="rv">💯</span><span class="rl">Sim — estou totalmente comprometido(a)</span></label>
+        <label class="rpill" onclick="selRpill(this,'comprometimento',1)"><input type="radio"><span class="rv">🤔</span><span class="rl">Sim, mas tenho algumas dúvidas</span></label>
+        <label class="rpill" onclick="selRpill(this,'comprometimento',3)"><input type="radio"><span class="rv">😬</span><span class="rl">Não sei se consigo manter por 21 dias</span></label>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="scale-wrap">
+      <span class="scale-lbl">Nível de motivação para mudar agora (0 = nenhum · 10 = muito alto)</span>
+      <div class="scale-row" id="motiv-sc">
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',0)"><span>0</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',1)"><span>1</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',2)"><span>2</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',3)"><span>3</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',4)"><span>4</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',5)"><span>5</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',6)"><span>6</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',7)"><span>7</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',8)"><span>8</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',9)"><span>9</span></button>
+        <button type="button" class="sc" onclick="selSc(this,'motiv-sc',10)"><span>10</span></button>
+      </div>
+      <div class="scale-ends"><span>Nenhum</span><span>Muito alto</span></div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="field"><label>Disponibilidade para investir em cuidado com sua saúde</label>
+      <div class="radio-grid" id="investimento">
+        <label class="rpill" onclick="selRpill(this,'investimento',0)"><input type="radio"><span class="rv">—</span><span class="rl">Zero</span></label>
+        <label class="rpill" onclick="selRpill(this,'investimento',1)"><input type="radio"><span class="rv">💰</span><span class="rl">Até R$ 300</span></label>
+        <label class="rpill" onclick="selRpill(this,'investimento',2)"><input type="radio"><span class="rv">💰💰</span><span class="rl">Até R$ 500</span></label>
+        <label class="rpill" onclick="selRpill(this,'investimento',3)"><input type="radio"><span class="rv">💰💰💰</span><span class="rl">Até R$ 1.000</span></label>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="field"><label>Como você chegou até aqui?</label>
+      <div class="radio-grid" id="origem">
+        <label class="rpill" onclick="selRpill(this,'origem',0)"><input type="radio"><span class="rv">📱</span><span class="rl">Instagram do Dr. Amilton</span></label>
+        <label class="rpill" onclick="selRpill(this,'origem',0)"><input type="radio"><span class="rv">👥</span><span class="rl">Indicação de amigo / familiar</span></label>
+        <label class="rpill" onclick="selRpill(this,'origem',0)"><input type="radio"><span class="rv">🔍</span><span class="rl">Busca no Google</span></label>
+        <label class="rpill" onclick="selRpill(this,'origem',0)"><input type="radio"><span class="rv">🏥</span><span class="rl">Já sou paciente</span></label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-main" onclick="calcular()">Ver meu resultado de elegibilidade →</button>
+  <p class="disclaimer">Seus dados são confidenciais e utilizados exclusivamente para avaliação de elegibilidade pelo Dr. Amilton Silva Jr. · Instituto Neuro Essentia.</p>
+
+</div><!-- /form-section -->
+
+<!-- RESULTADO -->
+<div id="result">
+  <div id="res-hero-wrap"></div>
+  <div id="res-detalhe-wrap"></div>
+  <div id="res-alertas-wrap"></div>
+  <div id="res-cta-wrap"></div>
+  <p class="disclaimer" style="margin-top:12px">Este formulário não substitui consulta médica individualizada. A elegibilidade final será confirmada pelo Dr. Amilton Silva Jr. diretamente pelo WhatsApp.</p>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <img class="footer-logo" src="data:image/png;base64,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" alt="Instituto Neuro Essentia">
+  <p><strong>Dr. Amilton A. Silva Jr.</strong> | CRM/SC 9118 | Neurologia e Neurocirurgia | RQE 6114 e 6113</p>
+  <div class="footer-line"></div>
+  <p><strong>Instituto Neuro Essentia</strong> — Balneário Camboriú / SC | WhatsApp: (47) 99220-2080<br>
+  Este material é de caráter exclusivamente educativo e não substitui a consulta médica individualizada.</p>
+</footer>
+
+<script>
+const S = {};
+
+function selRpill(el,grp,val){
+  document.querySelectorAll('#'+grp+' .rpill').forEach(r=>r.classList.remove('on'));
+  el.classList.add('on'); S[grp]=val; upd();
+}
+function selSc(el,grp,val){
+  document.querySelectorAll('#'+grp+' .sc').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on'); S[grp]=val; upd();
+}
+function togChk(el){
+  el.classList.toggle('on');
+  el.querySelector('input').checked=!el.querySelector('input').checked; upd();
+}
+
+function calcIMC(){
+  const p=parseFloat(document.getElementById('peso').value);
+  const a=parseFloat(document.getElementById('altura').value);
+  const box=document.getElementById('imc-result');
+  if(!p||!a||a<50){box.style.display='none';return;}
+  const imc=p/((a/100)**2);
+  let cls,txt;
+  if(imc<18.5)      {cls='ok';txt=`IMC: ${imc.toFixed(1)} — Abaixo do peso`;}
+  else if(imc<25)   {cls='ok';txt=`IMC: ${imc.toFixed(1)} — Peso adequado ✓`;}
+  else if(imc<30)   {cls='at';txt=`IMC: ${imc.toFixed(1)} — Sobrepeso`;}
+  else if(imc<35)   {cls='ob';txt=`IMC: ${imc.toFixed(1)} — Obesidade grau I`;}
+  else if(imc<40)   {cls='ob';txt=`IMC: ${imc.toFixed(1)} — Obesidade grau II`;}
+  else              {cls='ob';txt=`IMC: ${imc.toFixed(1)} — Obesidade grau III`;}
+  box.className='imc-result '+cls; box.textContent=txt; box.style.display='block'; upd();
+}
+
+function upd(){
+  const campos=[
+    document.getElementById('nome').value.trim()!=='',
+    document.getElementById('wpp').value.trim()!=='',
+    document.getElementById('idade').value!=='',
+    document.getElementById('sexo').value!=='',
+    document.getElementById('peso').value!=='',
+    document.getElementById('altura').value!=='',
+    document.getElementById('ca').value!=='',
+    'horas-sono' in S,'qual-sono' in S,'dif-sono' in S,
+    document.querySelectorAll('#sintomas-grid .chk-card.on').length>0,
+    'tempo-sint' in S,'impacto-sc' in S,
+    'ativ-freq' in S,'energia-sc' in S,
+    'alcool' in S,'alim' in S,
+    'comprometimento' in S,'motiv-sc' in S,'investimento' in S,
+  ];
+  const pct=Math.round(campos.filter(Boolean).length/campos.length*100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('pct-lbl').textContent=pct+'%';
+}
+
+function calcular(){
+  const nome=document.getElementById('nome').value.trim();
+  const wpp=document.getElementById('wpp').value.trim();
+  if(!nome||!wpp){alert('Informe nome e WhatsApp para continuar.');return;}
+  if(!document.getElementById('peso').value||!document.getElementById('altura').value){alert('Informe peso e altura.');return;}
+  if(!('horas-sono' in S)||!('qual-sono' in S)){alert('Responda todas as perguntas sobre sono.');return;}
+  if(!('impacto-sc' in S)){alert('Indique o impacto dos sintomas.');return;}
+  if(!('comprometimento' in S)){alert('Responda a pergunta de comprometimento.');return;}
+  if(!('investimento' in S)){alert('Selecione sua faixa de investimento.');return;}
+
+  const peso=parseFloat(document.getElementById('peso').value);
+  const alt=parseFloat(document.getElementById('altura').value);
+  const ca=parseFloat(document.getElementById('ca').value)||0;
+  const sexo=document.getElementById('sexo').value;
+  const idade=parseInt(document.getElementById('idade').value)||0;
+  const imc=peso/((alt/100)**2);
+
+  let pts=0; const alertas=[];
+
+  if(imc>=30){pts+=3;alertas.push({t:'IMC acima de 30',c:'red'});}
+  else if(imc>=25){pts+=2;alertas.push({t:'Sobrepeso (IMC '+imc.toFixed(1)+')',c:'amber'});}
+
+  const caRisco=sexo==='F'?(ca>=88?3:ca>=80?2:0):(ca>=102?3:ca>=94?2:0);
+  pts+=caRisco;
+  if(caRisco>=2) alertas.push({t:'Circunferência abdominal elevada ('+ca+' cm)',c:'red'});
+  else if(caRisco===1) alertas.push({t:'Circunferência abdominal limítrofe',c:'amber'});
+
+  if(idade>=50) pts+=2; else if(idade>=35) pts+=1;
+
+  pts+=(S['horas-sono']||0)+(S['qual-sono']||0)+(S['dif-sono']||0)+(S['sub-sono']||0);
+  if((S['qual-sono']||0)>=3) alertas.push({t:'Sono gravemente prejudicado',c:'red'});
+
+  let ptsSint=0; const sintsEl=[];
+  const sintsLabel={cansaco:'Cansaço mental',fog:'Brain fog',memoria:'Memória/Concentração',estresse:'Estresse crônico',humor:'Oscilação de humor',dor:'Dores crônicas',performance:'Queda de performance',libido:'Queda de libido',intestino:'Intestino irregular',peso:'Dif. para emagrecer'};
+  document.querySelectorAll('#sintomas-grid .chk-card.on input').forEach(cb=>{
+    ptsSint+=parseInt(cb.getAttribute('data-p')||1);
+    sintsEl.push(sintsLabel[cb.value]||cb.value);
+  });
+  pts+=Math.min(ptsSint,12);
+  pts+=(S['tempo-sint']||0)+(S['impacto-sc']||0);
+  pts+=(S['ativ-freq']||0);
+  pts+=(S['alcool']||0)+(S['tabaco']||0)+(S['alim']||0);
+
+  const comprom=S['comprometimento']||0;
+  pts-=comprom;
+  const motiv=S['motiv-sc']||0;
+  if(motiv>=8) pts+=2; else if(motiv<=3) pts-=2;
+
+  const invest=S['investimento']||0;
+  const MAX=52;
+  const score=Math.min(100,Math.max(0,Math.round((pts/MAX)*100)));
+
+  let faixa,icon,titulo,msg,cor;
+  if(score>=62){
+    faixa='verde';icon='✅';titulo='Você é candidato(a) ao Protocolo';cor='var(--green)';
+    msg=`<strong>${nome}</strong>, sua avaliação indica uma carga significativa de desregulação neurometabólica — exatamente o perfil que o Protocolo Reset 21D foi desenhado para atender. Você reúne os critérios clínicos. Nossa equipe entrará em contato pelo WhatsApp para confirmar sua vaga.`;
+  } else if(score>=38){
+    faixa='amber';icon='🔎';titulo='Perfil em avaliação complementar';cor='var(--amber)';
+    msg=`<strong>${nome}</strong>, você apresenta sinais relevantes de desregulação do sistema nervoso central. Alguns pontos precisam de análise adicional antes de confirmar sua elegibilidade. Vamos conversar pelo WhatsApp.`;
+  } else {
+    faixa='vermelho';icon='📋';titulo='Avaliação presencial recomendada';cor='var(--red)';
+    msg=`<strong>${nome}</strong>, com base nas suas respostas, seu quadro pode requerer uma abordagem clínica mais individualizada antes de qualquer protocolo. Recomendamos iniciar com uma consulta presencial.`;
+  }
+
+  const investLabel=invest===0?'Zero':invest===1?'Até R$ 300':invest===2?'Até R$ 500':invest===3?'Até R$ 1.000':'—';
+  const wppMsg=encodeURIComponent(`Olá, Dr. Amilton! Fiz a triagem do Protocolo Reset Neurometabólico 21D.\n\nNome: ${nome}\nScore: ${score}/100\nResultado: ${titulo}\nInvestimento: ${investLabel}\n\nAguardo o contato.`);
+
+  document.getElementById('res-hero-wrap').innerHTML=`
+    <div class="res-hero ${faixa}">
+      <span class="res-icon">${icon}</span>
+      <div class="res-title" style="color:${cor}">${titulo}</div>
+      <div class="res-score" style="color:${cor}">${score}<span style="font-size:22px">/100</span></div>
+      <p class="res-msg">${msg}</p>
+    </div>`;
+
+  const tagsHTML=sintsEl.length?sintsEl.map(s=>`<span class="tag">${s}</span>`).join(''):'<span style="color:var(--gray);font-size:13px">Nenhum sintoma marcado</span>';
+  document.getElementById('res-detalhe-wrap').innerHTML=`<div class="res-card"><h3>Sintomas identificados</h3><div class="tag-row">${tagsHTML}</div></div>`;
+
+  let alertHTML='';
+  if(alertas.length){
+    const items=alertas.map(a=>`<span class="tag ${a.c}">${a.t}</span>`).join('');
+    alertHTML=`<div class="res-card"><h3>Pontos de atenção clínica</h3><div class="tag-row">${items}</div></div>`;
+  }
+  document.getElementById('res-alertas-wrap').innerHTML=alertHTML;
+
+  document.getElementById('res-cta-wrap').innerHTML=`
+    <a class="btn-wpp" href="https://wa.me/5547992202080?text=${wppMsg}" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.116 1.535 5.845L.057 23.927l6.231-1.646C7.86 23.41 9.88 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.669-.506-5.197-1.388l-.371-.22-3.699.977.986-3.608-.242-.373C2.53 15.726 2 13.924 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      ${faixa==='verde'?'Quero confirmar minha vaga com o Dr. Amilton':'Continuar avaliação pelo WhatsApp'}
+    </a>`;
+
+  document.getElementById('form-section').style.display='none';
+  document.getElementById('result').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
